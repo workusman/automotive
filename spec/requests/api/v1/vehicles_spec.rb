@@ -6,8 +6,8 @@ describe "Vehicles" do
       {
         vehicle: {
           name: "Test Name",
-          make: "Honda",
-          model: "City",
+          make: "Audi",
+          model: "A4",
           year: 2019,
 
         }
