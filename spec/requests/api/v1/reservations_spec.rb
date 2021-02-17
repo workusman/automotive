@@ -37,4 +37,22 @@ describe "Reservations" do
       expect(json["vehicle"]["name"]).to eq vehicle.name
     end
   end
+
+  describe "CHECKS OVERLAPS" do
+    let(:reservation_2){ FactoryBot.create(:reservation, customer: customer, vehicle: vehicle, starts_at: Time.zone.now, ends_at: Time.zone.now + 1.days ) }
+    let(:new_params) {
+      {
+        reservation: {
+          starts_at: reservation_2.starts_at + 3.hours,
+          ends_at: reservation_2.ends_at - 3.hours,
+          vehicle_id: vehicle.id,
+          customer_id: customer.id
+        }
+      }
+    }
+    it 'checks for the overlap reservations' do
+      post "/api/v1/reservations", params: new_params
+      expect(json["exception"]["message"]).to eq "This vehicle is booked for the given time slot"
+    end
+  end
 end
