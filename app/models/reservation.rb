@@ -8,6 +8,6 @@ class Reservation < ApplicationRecord
   private
 
   def time_validation
-    errors.add(:base , 'End Time must me greater than Start Time') if (starts_at >= ends_at)
+    errors.add(:base , 'End Time must me greater than Start Time') if (starts_at.present? && ends_at.present? && starts_at >= ends_at)
   end
 end

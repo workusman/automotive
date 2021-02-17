@@ -3,8 +3,6 @@
 module Api
   module V1
     class CustomersController < Api::V1::BaseController
-      before_action :set_group_event, only: %i[show update destroy]
-
       def index
         @customers = Customer.all
       end
